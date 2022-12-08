@@ -5,8 +5,8 @@
 
 ##Loading data
 library(readxl)
-production_1<- read_xlsx("F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Aquaculture and capture and import production.xlsx",sheet = 1)
-export_1 <- read_xlsx("F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Export data.xlsx",sheet=2)
+production_1<- read_xlsx("Aquaculture and capture and import production.xlsx",sheet = 1)
+export_1 <- read_xlsx("Export data.xlsx",sheet=2)
 
 ##Data cleaning export_2
 library(stringr)
@@ -63,7 +63,7 @@ dt_final <- dt_t %>%
   pivot_wider(names_from = year, 
               values_from = f2)
 
-write.csv(dt_final,"F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/subtracted import.csv")
+write.csv(dt_final,"subtracted import.csv")
 
 
 ##Data less than 0 is converted to 0
@@ -76,7 +76,7 @@ x1<-names(dt_final_copy)[6:50]
 for (xi in x1){
   dt_final_copy[xi]<-positive(dt_final_copy[xi])
 }
-write.csv(dt_final_copy,"F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/subtracted import_0.csv")
+write.csv(dt_final_copy,"subtracted import_0.csv")
 
 
 ##Main function
@@ -109,7 +109,7 @@ library(dplyr)
 library(tidyverse)
 
 ##Loading data
-production_1<- read_xlsx("F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Aquaculture and capture and subtracted import production.xlsx")
+production_1<- read_xlsx("Aquaculture and capture and subtracted import production.xlsx")
 
 ##Step-1
 p_country_1 <- as.vector(unique(production_1$Country))
@@ -255,7 +255,7 @@ weight_2 <- function(production_1, ci) {
   if (dim(itemss)[1] > 0) {
     items_weight <- list()
     items <- as.vector(itemss$Var1)
-    for (xi in items) { ## items个数大于1的重新计算权重
+    for (xi in items) { 
       dx_02 <- filter(d_weight, Aqua.Cap.items == xi)
       ax <- as.numeric(dx_02[2])
       items_weight[[xi]] <- ax
@@ -323,7 +323,7 @@ for (ci in p_country_1) {
   m_01 <- rbind(m_01, y2)
 }
 
-write.csv(m_01,"F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Aquaculture and capture and subtracted import production-integrated.csv")
+write.csv(m_01,"Aquaculture and capture and subtracted import production-integrated.csv")
 
 
 #########################################################################################
@@ -332,8 +332,8 @@ write.csv(m_01,"F:/IHB/fifth article/Statistical analysis/Subtract export data f
 ####Aquaculture+capture+subtracted import-export---step3
 
 ##Loading data
-production_1<- read_xlsx("F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Aquaculture and capture and subtracted import production-integrated.xlsx",sheet = 1)
-export_1 <- read_xlsx("F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Export data.xlsx",sheet=1)
+production_1<- read_xlsx("Aquaculture and capture and subtracted import production-integrated.xlsx",sheet = 1)
+export_1 <- read_xlsx("Export data.xlsx",sheet=1)
 
 library(stringr)
 library(reshape2)
@@ -350,7 +350,7 @@ dhandle <- function(export_1){
 export_1_m = dhandle(export_1) 
 export_1_m =export_1_m%>% distinct() 
 
-write.csv(export_1_m,"F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Export data-integrated.csv")
+write.csv(export_1_m,"Export data-integrated.csv")
 
 ##Production+subtracted import-export
 ##Main function
@@ -392,7 +392,7 @@ dt_final <- dt_t %>%
   pivot_wider(names_from = year, 
               values_from = f2)
 
-write.csv(dt_final,"F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Production+subtracted import-export.csv")
+write.csv(dt_final,"Production+subtracted import-export.csv")
 
 
 ##Data greater than 0 is converted to 0
@@ -405,7 +405,7 @@ x1<-names(dt_final_copy)[6:50]
 for (xi in x1){
   dt_final_copy[xi]<-positive(dt_final_copy[xi])
 }
-write.csv(dt_final_copy,"F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Production+subtracted import-export(positive value is 0).csv")
+write.csv(dt_final_copy,"Production+subtracted import-export(positive value is 0).csv")
 
 ##Data less than 0 is converted to 0
 positive <- function(x){
@@ -417,21 +417,21 @@ x1<-names(dt_final_copy)[6:50]
 for (xi in x1){
   dt_final_copy[xi]<-positive(dt_final_copy[xi])
 }
-write.csv(dt_final_copy,"F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Production+subtracted import-export(negative value is 0).csv")
+write.csv(dt_final_copy,"Production+subtracted import-export(negative value is 0).csv")
 
 #########################################################################################
 #########################################################################################
 #########################################################################################
-####Aquaculture+capture+subtracted import-export-remaining export1--step3
-#dt_141$Latin.name.Species.group = sub("<U+00A0>","",as.character(dt_141$Latin.name.Species.group),fixed = TRUE)
+####Aquaculture+capture+subtracted import-export-remaining export1--step4
+
 library(plyr)
 library(readxl)
 library(dplyr)
 library(tidyverse)
 
 ##Loading data
-m_01<- read_xlsx("F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Production+subtracted import-export(positive value).xlsx")
-export_1<- read_xlsx("F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Remaining export-1.xlsx")
+m_01<- read_xlsx("Production+subtracted import-export(positive value).xlsx")
+export_1<- read_xlsx("Remaining export-1.xlsx")
 
 
 datahandle <- function(export_1) {
@@ -440,7 +440,7 @@ datahandle <- function(export_1) {
   export_002 <- aggregate(. ~ Aqua.Cap.items + Country, data = export_001, sum)
 }
 export_m <- datahandle(export_1)
-write.csv(export_m,"F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Integrated remaining export-1.csv")
+write.csv(export_m,"Integrated remaining export-1.csv")
 
 ##Main function
 Vol_a <- function(m_01,export_m,ci,yi){
@@ -476,7 +476,7 @@ Vol_a <- function(m_01,export_m,ci,yi){
   
   ##12345
   dt1 = data.frame()
-  ##先拆分带逗号的并匹配，然后匹配不带逗号的
+  ##
   for (i in t_items){
     num = grep(i,items_1,value = T)
     x = data.frame(i)
@@ -488,7 +488,7 @@ Vol_a <- function(m_01,export_m,ci,yi){
   
   ##12345
   dt2 = data.frame()
-  ##先拆分带逗号的并匹配，然后匹配不带逗号的
+  ##
   for (i in t_items){
     num = grep(i,items_1,value = T)
     x = data.frame(i)
@@ -500,7 +500,7 @@ Vol_a <- function(m_01,export_m,ci,yi){
   
   ##12345
   dt3 = data.frame()
-  ##先拆分带逗号的并匹配，然后匹配不带逗号的
+  ##
   for (i in t_items){
     num = grep(i,items_1,value = T)
     x = data.frame(i)
@@ -513,7 +513,7 @@ Vol_a <- function(m_01,export_m,ci,yi){
   
   ##12345
   dt4 = data.frame()
-  ##先拆分带逗号的并匹配，然后匹配不带逗号的
+  ##
   for (i in t_items){
     num = grep(i,items_1,value = T)
     x = data.frame(i)
@@ -525,7 +525,7 @@ Vol_a <- function(m_01,export_m,ci,yi){
   
   ##12345
   dt5 = data.frame()
-  ##先拆分带逗号的并匹配，然后匹配不带逗号的
+  ##
   for (i in t_items){
     num = grep(i,items_1,value = T)
     x = data.frame(i)
@@ -579,7 +579,7 @@ Vol_a <- function(m_01,export_m,ci,yi){
   ##分配完的结果数据
   dt11<-ddply(dt10,.(Aqua.Cap.items),summarize,f2 = sum(f1))
   
-  ##匹配并做差
+  ##matching and subtract
   
   s2_4 = s2[,c(1,3)]
   names(s2_4) = c("Aqua.Cap.items","f3")
@@ -610,7 +610,7 @@ Vol_b <- function(m_01,export_m,ci,yi){
   s1 = filter(export_m,Country ==ci)
   s2 = s1[,c(base2,yi)]
   items_total = as.vector(s2$Aqua.Cap.items)
-  ##筛选s2中带逗号
+  ##
   s2_1 = subset(s2,grepl(",",Aqua.Cap.items))
   items_1 = as.vector(s2_1$Aqua.Cap.items)
   
@@ -622,7 +622,7 @@ Vol_b <- function(m_01,export_m,ci,yi){
   
   ##12345
   dt1 = data.frame()
-  ##先拆分带逗号的并匹配，然后匹配不带逗号的
+  ##
   for (i in t_items){
     num = grep(i,items_1,value = T)
     x = data.frame(i)
@@ -634,7 +634,7 @@ Vol_b <- function(m_01,export_m,ci,yi){
   
   ##12345
   dt2 = data.frame()
-  ##先拆分带逗号的并匹配，然后匹配不带逗号的
+  ##
   for (i in t_items){
     num = grep(i,items_1,value = T)
     x = data.frame(i)
@@ -646,7 +646,7 @@ Vol_b <- function(m_01,export_m,ci,yi){
   
   ##12345
   dt3 = data.frame()
-  ##先拆分带逗号的并匹配，然后匹配不带逗号的
+  ##
   for (i in t_items){
     num = grep(i,items_1,value = T)
     x = data.frame(i)
@@ -659,7 +659,7 @@ Vol_b <- function(m_01,export_m,ci,yi){
   
   ##12345
   dt4 = data.frame()
-  ##先拆分带逗号的并匹配，然后匹配不带逗号的
+  ##
   for (i in t_items){
     num = grep(i,items_1,value = T)
     x = data.frame(i)
@@ -671,7 +671,7 @@ Vol_b <- function(m_01,export_m,ci,yi){
   
   ##12345
   dt5 = data.frame()
-  ##先拆分带逗号的并匹配，然后匹配不带逗号的
+  ##
   for (i in t_items){
     num = grep(i,items_1,value = T)
     x = data.frame(i)
@@ -681,7 +681,7 @@ Vol_b <- function(m_01,export_m,ci,yi){
   names(dt5) <- c('Aqua.Cap.items','merge.5')
   x_join_5 = left_join( x_join_4,dt5,by='Aqua.Cap.items')
   
-  ##分别做数据匹配-1
+  ##data matching-1
   s2_1_t = s2_1[,c(1,3)]
   names(s2_1_t) = c('Aqua.Cap.items','value1')
   y_join_1 = left_join(x_join_5,s2_1_t,by=c('merge.1'='Aqua.Cap.items'))
@@ -697,7 +697,7 @@ Vol_b <- function(m_01,export_m,ci,yi){
     r1 = rbind(r1,dm)
   }
   
-  ##分别做数据匹配-2
+  ##data matching-2
   s2_1_t = s2_1[,c(1,3)]
   names(s2_1_t) = c('Aqua.Cap.items','value1')
   y_join_1 = left_join(x_join_5,s2_1_t,by=c('merge.2'='Aqua.Cap.items'))
@@ -713,7 +713,7 @@ Vol_b <- function(m_01,export_m,ci,yi){
     r2 = rbind(r2,dm)
   }
   
-  ##分别做数据匹配-3
+  ##data matching-3
   s2_1_t = s2_1[,c(1,3)]
   names(s2_1_t) = c('Aqua.Cap.items','value1')
   y_join_1 = left_join(x_join_5,s2_1_t,by=c('merge.3'='Aqua.Cap.items'))
@@ -729,7 +729,7 @@ Vol_b <- function(m_01,export_m,ci,yi){
     r3 = rbind(r3,dm)
   }
   
-  ##分别做数据匹配-4
+  ##data matching-4
   s2_1_t = s2_1[,c(1,3)]
   names(s2_1_t) = c('Aqua.Cap.items','value1')
   y_join_1 = left_join(x_join_5,s2_1_t,by=c('merge.4'='Aqua.Cap.items'))
@@ -746,7 +746,7 @@ Vol_b <- function(m_01,export_m,ci,yi){
   }
   
   
-  ##分别做数据匹配-5
+  ##data matchingdata matching-5
   s2_1_t = s2_1[,c(1,3)]
   names(s2_1_t) = c('Aqua.Cap.items','value1')
   y_join_1 = left_join(x_join_5,s2_1_t,by=c('merge.5'='Aqua.Cap.items'))
@@ -762,7 +762,7 @@ Vol_b <- function(m_01,export_m,ci,yi){
     r5 = rbind(r5,dm)
   }
   
-  ##分别做数据匹配-6
+  ##data matching-6
   s2_2_t = s2[,c(1,3)]
   names(s2_2_t) = c('Aqua.Cap.items','value1')
   y_join_1 = left_join(x_join_5,s2_2_t,by='Aqua.Cap.items')
@@ -778,13 +778,13 @@ Vol_b <- function(m_01,export_m,ci,yi){
     r6 = rbind(r6,dm)
   }
   
-  ##合并r1-r5
+  ##combine r1-r5
   #r1_5 = rbind(r1,r2,r3,r4,r5)
   #r1_5 = r1_5[,c("Aqua.Cap.items","f1")]
-  #r1_5 = ddply(r1_5,.(Aqua.Cap.items),summarize,f3=sum(f1)) ##求合计
+  #r1_5 = ddply(r1_5,.(Aqua.Cap.items),summarize,f3=sum(f1))
   
   
-  ##与r6匹配--结果
+  ##combine with r6-result
   #r8 <- left_join(r6,r1_5,by = 'Aqua.Cap.items')
   # r8['f4']<-ifelse()
   
@@ -849,7 +849,7 @@ dt_result_final <- dt_result %>%
   pivot_wider(names_from = year, 
               values_from = f4)
 
-write.csv(dt_result_final,"F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Production+subtracted import-export-remaining export-1.csv")
+write.csv(dt_result_final,"Production+subtracted import-export-remaining export-1.csv")
 
 ##Data greater than 0 is converted to 0
 positive <- function(x){
@@ -866,7 +866,7 @@ for (xi in x1){
   dt_result_final_copy[xi]<-positive(dt_result_final_copy[xi])
 }
 
-write.csv(dt_result_final_copy,"F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Production+subtracted import-export-remaining export-1(positive value is 0).csv")
+write.csv(dt_result_final_copy,"Production+subtracted import-export-remaining export-1(positive value is 0).csv")
 ##Data less than 0 is converted to 0
 positive <- function(x){
   x[x<0]<- 0;
@@ -882,19 +882,17 @@ for (xi in x1){
   dt_result_final_copy[xi]<-positive(dt_result_final_copy[xi])
 }
 
-write.csv(dt_result_final_copy,"F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Production+subtracted import-export-remaining export-1(negative value is 0).csv")
-
-
+write.csv(dt_result_final_copy,"Production+subtracted import-export-remaining export-1(negative value is 0).csv")
 
 
 #########################################################################################
 #########################################################################################
 #########################################################################################
-####Aquaculture+capture+subtracted import-export-remaining export-last remaining export-step4
+####Aquaculture+capture+subtracted import-export-remaining export-last remaining export-step5
 
 ##Loading data
-m_01<- read_xlsx("F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Production+subtracted import-export-remaining export-1(positive value).xlsx")
-export_1<- read_xlsx("F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Remaining export-2.xlsx")
+m_01<- read_xlsx("Production+subtracted import-export-remaining export-1(positive value).xlsx")
+export_1<- read_xlsx("Remaining export-2.xlsx")
 
 datahandle <- function(export_1) {
   export <- export_1[, c(1,7, 8:52)]
@@ -902,7 +900,7 @@ datahandle <- function(export_1) {
   export_002 <- aggregate(. ~ Aqua.Cap.items + Country, data = export_001, sum)
 }
 export_m <- datahandle(export_1)
-write.csv(export_m,"F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Integrated remaining export-2.csv")
+write.csv(export_m,"Integrated remaining export-2.csv")
 
 
 ##Main function
@@ -1238,7 +1236,7 @@ Vol_b <- function(m_01,export_m,ci,yi){
   ##Combine r1-r5
   #r1_5 = rbind(r1,r2,r3,r4,r5)
   #r1_5 = r1_5[,c("Aqua.Cap.items","f1")]
-  #r1_5 = ddply(r1_5,.(Aqua.Cap.items),summarize,f3=sum(f1)) ##求合计
+  #r1_5 = ddply(r1_5,.(Aqua.Cap.items),summarize,f3=sum(f1))
   
   
   ##Match r6 -- the result
@@ -1307,7 +1305,7 @@ dt_result_final <- dt_result %>%
   pivot_wider(names_from = year, 
               values_from = f4)
 
-write.csv(dt_result_final,"F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Production+subtracted import-export-remaining export1-remaining export2.csv")
+write.csv(dt_result_final,"Production+subtracted import-export-remaining export1-remaining export2.csv")
 
 ##The data greater than 0 turns to 0
 positive <- function(x){
@@ -1324,7 +1322,7 @@ for (xi in x1){
   dt_result_final_copy[xi]<-positive(dt_result_final_copy[xi])
 }
 
-write.csv(dt_result_final_copy,"F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Production+subtracted import-export-remaining export1-remaining export2(positive value is 0).csv")
+write.csv(dt_result_final_copy,"Production+subtracted import-export-remaining export1-remaining export2(positive value is 0).csv")
 
 ##Data less than 0 is converted to 0
 positive <- function(x){
@@ -1341,7 +1339,10 @@ for (xi in x1){
   dt_result_final_copy[xi]<-positive(dt_result_final_copy[xi])
 }
 
-write.csv(dt_result_final_copy,"F:/IHB/fifth article/Statistical analysis/Subtract export data from all production-method 2/Production+subtracted import-export-remaining export1-remaining export2(negative value is 0).csv")
-
-
-
+write.csv(dt_result_final_copy,"Production+subtracted import-export-remaining export1-remaining export2(negative value is 0).csv")
+########################################################################################################################################
+########################################################################################################################################
+#####Description of the results
+#The result of "Production+subtracted import-export-remaining export1-remaining export2(negative value is 0).csv" is theoretical apparent aquatic food domestic consumption of all countries.
+#The difference of "Production+subtracted import-export-remaining export1-remaining export2(negative value is 0).csv" and "Aquaculture and capture and subtracted import production-integrated.csv" is theoretical export data.
+#The difference of "Import" and "subtracted import" is theoretical reexport data
