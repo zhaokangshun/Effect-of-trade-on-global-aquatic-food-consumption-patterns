@@ -1,1 +1,2 @@
-# Trade is improving global aquatic food consumption
+# Effect of trade on global aquatic food consumption patterns
+Globalization of fishery products is playing a significant role in shaping the harvesting and use of aquatic foods, but a vigorous debate has focused on whether the trade is a driver of the inequitable distribution of aquatic foods. Here, we develop species-level mass balance and trophic level identification datasets for 174 countries and territories to analyze global aquatic food consumption patterns, trade characteristics, and impacts from 1976 to 2019. 
